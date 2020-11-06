@@ -19,7 +19,8 @@ public class MenuView : MonoBehaviour
     }
 
     void CreateRoomClick()
-    {
+    {   
+        Launcher.instance.CreateRoom();
         Debug.Log("Create Room View");
     }
 
