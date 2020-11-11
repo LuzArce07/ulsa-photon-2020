@@ -15,8 +15,15 @@ public class Launcher : MonoBehaviourPunCallbacks
     GameObject menuView;
     [SerializeField]
     GameObject createRoomView;
-     [SerializeField]
+    [SerializeField]
     GameObject roomView;
+    [SerializeField]
+    RoomView roomViewObj;
+    [SerializeField]
+    GameObject setNickNameView;
+    [SerializeField]
+    GameObject findRoomView;
+
 
 
     void Awake()
@@ -48,7 +55,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         loading.SetActive(false);
-        menuView.SetActive(true);
+        setNickNameView.SetActive(true);
+        //menuView.SetActive(true);
         Debug.Log("Joined to lobby");
     }
 
@@ -76,6 +84,17 @@ public class Launcher : MonoBehaviourPunCallbacks
         loading.SetActive(false);
         roomView.SetActive(true);
         Debug.Log($"Joined to: {PhotonNetwork.CurrentRoom.Name}");
+        roomViewObj.FillPlayerListContainer(PhotonNetwork.PlayerList);
+    }
+
+    public override void OnPlayerEnteredRoom(Player player)
+    {
+        roomViewObj.AddPlayerToListContainer(player);
+    }
+
+    public override void OnPlayerLeftRoom(Player player)
+    {
+        roomViewObj.RemovePlayerInListContainer(player);
     }
 
     public void LeaveCurrentRoom()
@@ -87,9 +106,31 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        Debug.Log("Exited from room");
+        Debug.Log("Exited form room");
     }
 
     public string CurrentRoomName => PhotonNetwork.CurrentRoom.Name;
 
+    public void SetNickName(string nickName)
+    {
+        PhotonNetwork.NickName = nickName;
+        setNickNameView.SetActive(false);
+        menuView.SetActive(true);
+    }
+
+    public void FindRoomViewClick()
+    {
+        menuView.SetActive(false);
+        findRoomView.SetActive(true);
+    }
+
+    public void LeaveFindRoomViewClick()
+    {
+        findRoomView.SetActive(false);
+        menuView.SetActive(true);
+    }
+
+
+
 }
+
