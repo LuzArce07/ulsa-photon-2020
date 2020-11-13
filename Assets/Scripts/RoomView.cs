@@ -7,6 +7,7 @@ using Photon.Realtime;
 
 public class RoomView : MonoBehaviour
 {
+    
     [SerializeField]
     TMP_Text txtRoomName;
     [SerializeField]
