@@ -30,6 +30,9 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     void Awake()
     {
+
+        instance = this;
+        /*
         if(!instance)
         {
             instance = this;
@@ -38,7 +41,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         else
         {
             Destroy(gameObject);
-        }
+        }*/
     }
 
     void Start()
